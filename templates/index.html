@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% load static %}  <!-- Load the static files tag library -->
+
+{% block title %} Home {% endblock title %}
+
+{% block body %} 
+
+<div class="container-fluid my-4">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static '1.jpg' %}" width="1600" height="660" class="d-block w-100" alt="First slide description">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static '2.jpg' %}" width="1600" height="660" class="d-block w-100" alt="Second slide description">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static '3.jpg' %}" width="1600" height="660" class="d-block w-100" alt="Third slide description">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="album py-5 bg-body-tertiary">
+    <h1 class="my-2 text-center">Get the best plan to Transform Yourself</h1>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <!-- Diet Plan 1 -->
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Diet Plan 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Balanced Diet Plan</h5>
+                        <p class="card-text">A balanced diet that includes a variety of foods to provide all the nutrients your body needs.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'view_diet' diet_id=1 %}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="{% url 'edit_diet' diet_id=1 %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            </div>
+                            <small class="text-body-secondary">Healthy</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diet Plan 2 -->
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Diet Plan 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Keto Diet Plan</h5>
+                        <p class="card-text">A high-fat, low-carbohydrate diet designed to help you burn fat effectively.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'view_diet' diet_id=2 %}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="{% url 'edit_diet' diet_id=2 %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            </div>
+                            <small class="text-body-secondary">Weight Loss</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diet Plan 3 -->
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Diet Plan 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Vegetarian Diet Plan</h5>
+                        <p class="card-text">A nutritious plan focusing on plant-based foods to help you stay healthy.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'view_diet' diet_id=3 %}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="{% url 'edit_diet' diet_id=3 %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            </div>
+                            <small class="text-body-secondary">Nutritious</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
