@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from home.models import Contact
 from django.contrib import messages
@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from home.models import Diet
+from django import forms
 
 # Create your views here.
 
@@ -60,20 +62,42 @@ def register_view(request):
             messages.error(request, "Passwords do not match")
     return render(request, 'register.html')
 
-def view_diet(request, diet_id):
-    # Retrieve the diet plan from the database using diet_id
-    # Render a template to display the diet plan
-    return render(request, 'view_diet.html', {'diet_id': diet_id})
-
-def edit_diet(request, diet_id):
-    # Retrieve the diet plan from the database and handle the editing
-    if request.method == 'POST':
-        # Handle form submission and update the diet plan
-        return redirect('index')
-    # Render a form for editing the diet plan
-    return render(request, 'edit_diet.html', {'diet_id': diet_id})
-
 def logout_view(request):
     logout(request)  # Logs out the user
     messages.success(request, "You have been logged out successfully.")
     return redirect('login')  # Redirects to the login page after logging out
+
+# View a specific diet
+def view_diet(request, diet_id):
+    diet = get_object_or_404(Diet, id=diet_id)
+    return render(request, 'view_diet.html', {'diet': diet})
+
+# Edit a specific diet
+def edit_diet(request, diet_id):
+    diet = get_object_or_404(Diet, id=diet_id)
+    
+    if request.method == 'POST':
+        # Update the diet details
+        diet.name = request.POST['name']
+        diet.description = request.POST['description']
+        diet.category = request.POST['category']
+        diet.calories = request.POST['calories']
+        diet.save()
+
+        messages.success(request, "Diet updated successfully!")
+        return redirect('view_diet', diet_id=diet.id)
+
+    return render(request, 'edit_diet.html', {'diet': diet})
+
+# Delete a specific diet
+def delete_diet(request, diet_id):
+    # Prevent deleting the diet with ID 1
+    if diet_id == 1:
+        messages.error(request, "Diet with ID 1 cannot be deleted.")
+        return redirect('main')  # Redirect to the main page (or wherever you want)
+
+    # If not diet ID 1, proceed to delete
+    diet = get_object_or_404(Diet, id=diet_id)
+    diet.delete()
+    messages.success(request, "Diet deleted successfully!")
+    return redirect('main')

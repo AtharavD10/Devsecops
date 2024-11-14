@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} View Diet {% endblock title %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title">{{ diet.name }}</h3>
+            <p class="card-text">{{ diet.description }}</p>
+            <p><strong>Category:</strong> {{ diet.category }}</p>
+            <p><strong>Calories:</strong> {{ diet.calories }} kcal</p>
+
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'edit_diet' diet_id=diet.id %}" class="btn btn-primary">Edit Diet</a>
+                <a href="{% url 'delete_diet' diet_id=diet.id %}" class="btn btn-danger">Delete Diet</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

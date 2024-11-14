@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% load static %}  <!-- Load the static files tag library -->
+{% load static %}
 
 {% block title %} Home {% endblock title %}
 
-{% block body %} 
+{% block body %}
 
 <div class="container-fluid my-4">
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -31,63 +31,30 @@
 </div>
 
 <div class="album py-5 bg-body-tertiary">
-    <h1 class="my-2 text-center">Get the best plan to Transform Yourself</h1>
+    <h1 class="my-2 text-center">Transform Yourself with a Balanced Diet Plan</h1>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <!-- Diet Plan 1 -->
+            <!-- Single Diet Plan -->
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Diet Plan 1">
+                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Balanced Diet Plan">
                     <div class="card-body">
                         <h5 class="card-title">Balanced Diet Plan</h5>
-                        <p class="card-text">A balanced diet that includes a variety of foods to provide all the nutrients your body needs.</p>
+                        <p class="card-text">A well-rounded diet plan designed to provide essential nutrients, supporting overall health and wellness.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
+                                <!-- View Diet button -->
                                 <a href="{% url 'view_diet' diet_id=1 %}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <!-- Edit Diet button -->
                                 <a href="{% url 'edit_diet' diet_id=1 %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <!-- Delete Diet button -->
+                                <a href="{% url 'delete_diet' diet_id=1 %}" class="btn btn-sm btn-outline-danger">Delete</a>
                             </div>
-                            <small class="text-body-secondary">Healthy</small>
+                            <small class="text-body-secondary">Balanced & Nutritious</small>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Diet Plan 2 -->
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Diet Plan 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Keto Diet Plan</h5>
-                        <p class="card-text">A high-fat, low-carbohydrate diet designed to help you burn fat effectively.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'view_diet' diet_id=2 %}" class="btn btn-sm btn-outline-secondary">View</a>
-                                <a href="{% url 'edit_diet' diet_id=2 %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                            </div>
-                            <small class="text-body-secondary">Weight Loss</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Diet Plan 3 -->
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img src="{% static 'diet.jpg' %}" class="d-block w-100" alt="Diet Plan 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Vegetarian Diet Plan</h5>
-                        <p class="card-text">A nutritious plan focusing on plant-based foods to help you stay healthy.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'view_diet' diet_id=3 %}" class="btn btn-sm btn-outline-secondary">View</a>
-                                <a href="{% url 'edit_diet' diet_id=3 %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                            </div>
-                            <small class="text-body-secondary">Nutritious</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
