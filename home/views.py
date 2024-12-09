@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_http_methods
 from datetime import datetime
 from home.models import Contact
 from django.contrib import messages
@@ -89,13 +90,12 @@ def edit_diet(request, diet_id):
 
     return render(request, 'edit_diet.html', {'diet': diet})
 
-# Delete a specific diet
+@require_http_methods(["POST"])
 def delete_diet(request, diet_id):
     # Prevent deleting the diet with ID 1
     if diet_id == 1:
         messages.error(request, "Diet with ID 1 cannot be deleted.")
         return redirect('main')  # Redirect to the main page (or wherever you want)
-
     # If not diet ID 1, proceed to delete
     diet = get_object_or_404(Diet, id=diet_id)
     diet.delete()
