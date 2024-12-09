@@ -1,22 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from datetime import datetime
-from home.models import Contact
+from home.models import Contact, Diet
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from home.models import Diet
-from django import forms
-
-# Create your views here.
 
 # Main page view with authentication check
 @login_required(login_url='login')  # Redirect to login if not authenticated
+@require_http_methods(["GET"])  # Only allow GET requests
 def index(request):
     return render(request, 'index.html')
 
+# Contact form view
+@require_http_methods(["GET", "POST"])  # Allow GET and POST requests
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -28,6 +27,8 @@ def contact(request):
         messages.success(request, "Your form is submitted.")
     return render(request, 'contact.html')
 
+# Login view
+@require_http_methods(["GET", "POST"])  # Allow GET and POST requests
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -39,9 +40,10 @@ def login_view(request):
             return redirect('main')  # Redirect to the main page after login
         else:
             messages.error(request, 'Invalid username or password.')
-
     return render(request, 'login.html')
 
+# Register view
+@require_http_methods(["GET", "POST"])  # Allow GET and POST requests
 def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -63,17 +65,21 @@ def register_view(request):
             messages.error(request, "Passwords do not match")
     return render(request, 'register.html')
 
+# Logout view
+@require_http_methods(["POST"])  # Allow POST requests only for logout
 def logout_view(request):
     logout(request)  # Logs out the user
     messages.success(request, "You have been logged out successfully.")
     return redirect('login')  # Redirects to the login page after logging out
 
 # View a specific diet
+@require_http_methods(["GET"])  # Only allow GET requests
 def view_diet(request, diet_id):
     diet = get_object_or_404(Diet, id=diet_id)
     return render(request, 'view_diet.html', {'diet': diet})
 
 # Edit a specific diet
+@require_http_methods(["GET", "POST"])  # Allow GET and POST requests
 def edit_diet(request, diet_id):
     diet = get_object_or_404(Diet, id=diet_id)
     
@@ -90,7 +96,8 @@ def edit_diet(request, diet_id):
 
     return render(request, 'edit_diet.html', {'diet': diet})
 
-@require_http_methods(["POST"])
+# Delete a specific diet
+@require_http_methods(["POST"])  # Allow POST requests only for deletion
 def delete_diet(request, diet_id):
     # Prevent deleting the diet with ID 1
     if diet_id == 1:
